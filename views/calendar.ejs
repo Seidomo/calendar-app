@@ -12,9 +12,39 @@
     <h1>Calendar App</h1>
   </header>
   <main>
-    <h2>Date: 
+    <form action = '/<%=role%>/date' method = "GET">
+      <input type = date required name = "date">
+      <button>Submit</button>
+    </form>
+    <h2>Date: <%=date%>
     </h2>
     <ul>Events</ul>
+      <%for(let i=0; i < employee.length; i++){%>
+        <li class="employee"><%=employee[i]%></li>
+      <%}%>
+      <%if(role === "manager" || role === "executive"){%>
+        <%for(let i=0; i < manager.length; i++){%>
+          <li class="manager"><%=manager[i]%></li>
+        <%}%>
+      <%}%>
+      <%if(role === "executive"){%>
+        <%for(let i=0; i < executive.length; i++){%>
+          <li class="executive"><%=executive[i]%></li>
+        <%}%>
+      <%}%>
+      <%if(role === "executive"){%>
+        <form action = "/executive" method = "POST">
+          <label>Date</label>
+          <input type = 'date' name = "date" required>
+          <label>Employee Events</label>
+          <input type = 'text' name = "employee" placeholder ="None" value = "None">
+          <label>Manager Events</label>
+          <input type = 'text' name = 'manager' placeholder ="None" value = "None">
+          <label>Executive Events</label>
+          <input type = 'text' name = 'executive' placeholder ="None" value = "None">
+          <button id = "event-submit">Submit</button>
+        </form>
+      <%}%>
   </main>
   <footer>
   </footer>
