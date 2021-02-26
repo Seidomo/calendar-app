@@ -1,80 +1,46 @@
-
 'use strict';
 
-// const fs = require('fs');
 const express = require('express');
-// const Collection = require('../auth/models/users.js');
-// const bearerAuth = require('../auth/middleware/bearer.js');
-// const accessControl = require('../auth/middleware/acl.js');
-
-
 const router = express.Router();
 
-// const models = new Map();
-
-// router.param('model', (req, res, next) => {
-//   const modelName = req.params.model;
-//   if (models.has(modelName)) {
-//     req.model = models.get(modelName);
-//     next();
-//   } else {
-//     const fileName = `${__dirname}/../models/${modelName}/model.js`;
-//     if (fs.existsSync(fileName)) {
-//       const model = require(fileName);
-//       models.set(modelName, new Collection(model));
-//       req.model = models.get(modelName);
-//       next();
-//     }
-//     else {
-//       next('Invalid Model');
-//     }
-//   }
-// });
-
-router.get('/:date', handleGetAll);
-router.get('/:date/:id', handleGetOne);
+// Routes
 router.get('/', getHomePage);
-router.post('/:date', handleCreate);
-router.put('/:date/:id', handleUpdate);
-router.delete('/:date/:id', handleDelete);
+router.get('/:role', getCalendar);
+router.post('/:role/:id', createEvent);
+router.delete('/:role/:id', deleteEvent);
 
-async function handleGetAll(req, res) {
-  let allRecords = await req.model.get();
-  res.status(200).json(allRecords);
+// Route Handlers
+function getHomePage(req, res) {
+  res.status(200).render('home.ejs');
 }
 
-async function handleGetOne(req, res) {
-  const id = req.params.id;
-  let theRecord = await req.model.get(id);
-  res.status(200).json(theRecord);
+function getCalendar(req, res) {
+  req.params.role;
+  console.log(req.params);
+  // model.find(date) first the date
+  // events from the first date
+  // filter based on req.params.role
+  res.render('calendar.ejs', {
+    role: req.params.role,
+    date: '11/20/2021',
+    worker: ['Party', 'Ping Pong'],
+    vp: ['boring meeting'],
+    executive: ['Really boring meeting'],
+  });
 }
 
-async function getHomePage(req, res) {
-  res.status(200).render('../pages/index.ejs');
+async function createEvent(req, res) {
+  // let obj = req.body;
+  // let newRecord = await req.model.create(obj);
+  // res.status(201).json(newRecord);
 }
 
-async function handleCreate(req, res) {
-  let obj = req.body;
-  let newRecord = await req.model.create(obj);
-  res.status(201).json(newRecord);
+async function deleteEvent(req, res) {
+  // let id = req.params.id;
+  // let deletedRecord = await req.model.delete(id);
+  // res.status(200).json(deletedRecord);
 }
 
-async function handleUpdate(req, res) {
-  const id = req.params.id;
-  const obj = req.body;
-  let updatedRecord = await req.model.update(id, obj);
-  res.status(200).json(updatedRecord);
-}
-
-async function handleDelete(req, res) {
-  let id = req.params.id;
-  let deletedRecord = await req.model.delete(id);
-  res.status(200).json(deletedRecord);
-}
 
 
 module.exports = router;
-
-
-
-
