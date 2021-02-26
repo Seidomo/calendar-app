@@ -27,12 +27,12 @@ authRouter.post('/signup', async (req, res, next) => {
   }
 });
 
-authRouter.post('/signin', basicAuth, (req, res, next) => {
+authRouter.post('/signin', basicAuth, (req, res) => {
   const user = {
     user: req.user,
   };
-  console.log(user);
-  res.status(200).redirect(`/date`);
+  // res.status(200).redirect(`/${user.user.role}`);
+  res.send(`/${user.user.role}` );
 });
 
 
