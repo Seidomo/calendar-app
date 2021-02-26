@@ -2,7 +2,7 @@
 
 // 3rd Party Resources
 const express = require('express');
-// const cors = require('cors');
+const cors = require('cors');
 const morgan = require('morgan');
 
 // Esoteric Resources
@@ -12,25 +12,24 @@ const authRoutes = require('./auth/router.js');
 const dateRoutes = require('./routes/router.js');
 const logger = require('./middleware/logger.js');
 
-
 // Prepare the express app
 const app = express();
 
-
-// App Level MW
-// app.use(cors());
-app.use(morgan('dev'));
-
 app.use(express.json());
+app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.use(cors());
+app.use(morgan('dev'));
 app.use(logger);
+
 
 // Routes
 app.use(authRoutes);
 app.use(dateRoutes);
 
 // Catchalls
-app.use(notFound);
+app.use('*', notFound);
 app.use(errorHandler);
 
 module.exports = {
