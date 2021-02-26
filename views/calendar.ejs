@@ -12,22 +12,9 @@
     <h1>Calendar App</h1>
   </header>
   <main>
-    <h2>Date: <%=date%>
+    <h2>Date: 
     </h2>
     <ul>Events</ul>
-      <%for(let i=0; i < worker.length; i++){%>
-        <li class="worker"><%=worker[i]%></li>
-      <%}%>
-      <%if(role === "vp" || role === "executive"){%>
-        <%for(let i=0; i < vp.length; i++){%>
-          <li class="vp"><%=vp[i]%></li>
-        <%}%>
-      <%}%>
-      <%if(role === "executive"){%>
-        <%for(let i=0; i < executive.length; i++){%>
-          <li class="executive"><%=executive[i]%></li>
-        <%}%>
-      <%}%>
   </main>
   <footer>
   </footer>

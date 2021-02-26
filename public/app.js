@@ -1,11 +1,24 @@
 'use strict';
 
-function changeAction(){
-  const role = $('#sign-up-select').val();
-  console.log(role);
-  $('#sign-up').attr('action', `/${role}`);
-};
+// function changeAction(){
+//   const role = $('#sign-up-select').val();
+//   console.log(role);
+//   $('#sign-up').attr('action', `/${role}`);
+// }
 
 
 
-$('#sign-up-select').change(changeAction);
+// $('#sign-up-select').change(changeAction);
+
+$('#sign-in-button').on('click',function(e){
+  e.preventDefault();
+  const header = btoa(`${$('#username').val()}:${$('#password').val()}`);
+  $.ajax({
+    url: "http://localhost:3005/signin",
+    type: 'POST',
+    contentType: 'application/json',
+    headers: {
+      "Authorization": "Basic " + header,
+      },
+    async: true});
+          });

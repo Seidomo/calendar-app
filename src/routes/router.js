@@ -10,6 +10,12 @@ const express = require('express');
 
 const router = express.Router();
 
+router.use(express.static('./public'));
+
+
+
+// router.use(express.static('./public'));
+
 // const models = new Map();
 
 // router.param('model', (req, res, next) => {
@@ -39,8 +45,8 @@ router.put('/:date/:id', handleUpdate);
 router.delete('/:date/:id', handleDelete);
 
 async function handleGetAll(req, res) {
-  let allRecords = await req.model.get();
-  res.status(200).json(allRecords);
+  console.log('we made it');
+  res.render('calendar.ejs');
 }
 
 async function handleGetOne(req, res) {
@@ -50,7 +56,7 @@ async function handleGetOne(req, res) {
 }
 
 async function getHomePage(req, res) {
-  res.status(200).render('../pages/index.ejs');
+  res.status(200).render('home.ejs');
 }
 
 async function handleCreate(req, res) {

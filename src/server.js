@@ -16,6 +16,11 @@ const logger = require('./middleware/logger.js');
 // Prepare the express app
 const app = express();
 
+app.use(express.static('./public'));
+
+
+app.set('view engine', 'ejs');
+
 
 // App Level MW
 // app.use(cors());
