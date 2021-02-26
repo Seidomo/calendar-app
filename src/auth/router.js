@@ -16,7 +16,7 @@ authRouter.post('/signup', async (req, res, next) => {
       user: userRecord,
       token: userRecord.token,
     };
-    res.status(201).json(output);
+    res.status(201).redirect(`/${user.role}`);
   } catch (e) {
     next(e.message);
   }
@@ -27,7 +27,8 @@ authRouter.post('/signin', basicAuth, (req, res, next) => {
     user: req.user,
     token: req.user.token,
   };
-  res.status(200).json(user);
+  console.log(user);
+  res.status(200).redirect(`/date`);
 });
 
 
